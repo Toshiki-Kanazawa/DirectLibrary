@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "DirectLibrary.h"
+#include "DirectX.h"
 
 #define MAX_LOADSTRING 100
 
@@ -42,6 +43,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
+    //DirectXの初期化
+    DirectX::Init();
+
     // メイン メッセージ ループ:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
@@ -50,7 +54,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
+
+        DirectX::StartRendering();
+
+        DirectX::FinishRendering();
     }
+
+    //DirectXの解放処理
+    DirectX::Release();
 
     return (int) msg.wParam;
 }
