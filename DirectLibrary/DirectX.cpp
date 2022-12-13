@@ -11,11 +11,9 @@ ID3D11RenderTargetView* DirectX::renderTargetView = nullptr;	//ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒ
 ID3D11Texture2D* DirectX::texture = nullptr;					//ƒŒƒ“ƒ_[ƒeƒNƒXƒ`ƒƒ[
 ID3D11DepthStencilView* DirectX::depthStencilView = nullptr;	//ƒfƒvƒXƒXƒeƒ“ƒVƒ‹ƒrƒ…[
 
-
 //ƒXƒƒbƒvƒ`ƒFƒCƒ“‚ğ¶¬‚·‚é‚Æ‚«‚É•K—v‚Èƒpƒ‰ƒ[ƒ^‚ğ—pˆÓ‚·‚é
-void SetupDxgiSwapChainDesc(DXGI_SWAP_CHAIN_DESC* dxgi)
+void DirectX::CreateSwapChainDesc( HWND window_handle, DXGI_SWAP_CHAIN_DESC* dxgi)
 {
-	HWND window_handle = FindWindow(L"DirectLibrary", nullptr);
 	RECT rect;
 	GetClientRect(window_handle, &rect);
 
@@ -31,28 +29,15 @@ void SetupDxgiSwapChainDesc(DXGI_SWAP_CHAIN_DESC* dxgi)
 	dxgi->SampleDesc.Count = 1;
 	dxgi->SampleDesc.Quality = 0;
 	dxgi->Windowed = true;
-
 }
 
 //ƒfƒoƒCƒX‚ÆƒXƒƒbƒvƒ`ƒFƒCƒ“‚ÆƒRƒ“ƒeƒLƒXƒg‚ğì¬‚·‚é
-void CreateDeviceAndSwapChain( IDXGISwapChain* swapChain, ID3D11Device* device, ID3D11DeviceContext* context )
+bool DirectX::CreateDeviceAndSwapChain(HWND window_handle)
 {
-}
-
-//ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚ğì¬‚·‚é
-void CreateRenderTarget()
-{
-
-}
-
-bool DirectX::Init()
-{
-	//ƒfƒoƒCƒX‚ÆƒRƒ“ƒeƒLƒXƒg‚ÆƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìì¬
 	DXGI_SWAP_CHAIN_DESC dxgi;
-	SetupDxgiSwapChainDesc(&dxgi);
+	CreateSwapChainDesc( window_handle, &dxgi);
 	D3D_FEATURE_LEVEL level;
-
-	D3D11CreateDeviceAndSwapChain
+	if (FAILED(D3D11CreateDeviceAndSwapChain
 	(
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
@@ -66,18 +51,36 @@ bool DirectX::Init()
 		&device,
 		&level,
 		&context
-	);
+	)
+	))
+	{
+		return false;
+	}
+	return true;
+}
 
-	//TODO::ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ìì¬
-
+//ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒgƒrƒ…[‚Ìì¬
+bool DirectX::CreateRenderTargetView()
+{
 	ID3D11Texture2D* back_buffer;
-	swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&back_buffer);
-	device->CreateRenderTargetView(back_buffer, nullptr, &renderTargetView);
+	if (FAILED(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&back_buffer)))
+	{
+		return false;
+	}
+
+	if (FAILED(device->CreateRenderTargetView(back_buffer, nullptr, &renderTargetView)))
+	{
+		return false;
+	}
 
 	back_buffer->Release();
 
-	//ƒfƒvƒXƒXƒeƒ“ƒVƒ‹‚Ìì¬
-	HWND window_handle = FindWindow(L"DirectLibrary", nullptr);
+	return true;
+}
+
+//ƒfƒvƒXƒXƒeƒ“ƒVƒ‹ƒrƒ…[‚Ìì¬
+bool DirectX::CreateDepthStencilView(HWND window_handle)
+{
 	RECT rect;
 	GetClientRect(window_handle, &rect);
 
@@ -95,20 +98,48 @@ bool DirectX::Init()
 	texture_desc.CPUAccessFlags = 0;
 	texture_desc.MiscFlags = 0;
 
-	device->CreateTexture2D(&texture_desc, NULL, &texture);
+	if (FAILED(device->CreateTexture2D(&texture_desc, NULL, &texture)))
+	{
+		return false;
+	}
 
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsv_desc;
 	ZeroMemory(&dsv_desc, sizeof(D3D11_DEPTH_STENCIL_VIEW_DESC));
 	dsv_desc.Format = texture_desc.Format;
 	dsv_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	dsv_desc.Texture2D.MipSlice = 0;
+	if (FAILED(device->CreateDepthStencilView(texture, &dsv_desc, &depthStencilView)))
+	{
+		return false;
+	}
 
-	device->CreateDepthStencilView(texture, &dsv_desc, &depthStencilView);
+	return true;
+}
 
+//DirectX‚Ì‰Šú‰»ˆ—
+bool DirectX::Init()
+{
+	HWND window_handle = FindWindow(L"DirectLibrary", nullptr);
 
+	//ƒfƒoƒCƒX‚ÆƒRƒ“ƒeƒLƒXƒg‚ÆƒXƒƒbƒvƒ`ƒFƒCƒ“‚Ìì¬
+	if (!CreateDeviceAndSwapChain(window_handle))
+	{
+		return false;
+	}
+
+	//ƒŒƒ“ƒ_[ƒ^[ƒQƒbƒg‚Ìì¬
+	if (!CreateRenderTargetView())
+	{
+		return false;
+	}
+
+	//ƒfƒvƒXƒXƒeƒ“ƒVƒ‹‚Ìì¬
+	if (!CreateDepthStencilView(window_handle))
+	{
+		return false;
+	}
 
 	//TODO::ƒrƒ…[ƒ|[ƒg‚Ìİ’è
-
 
 	//TODO::ƒVƒF[ƒ_[‚Ìì¬
 
@@ -118,7 +149,12 @@ bool DirectX::Init()
 //DirectX‚Ì‰ğ•úŠÖ”
 void DirectX::Release()
 {
-
+	if (depthStencilView != nullptr) depthStencilView->Release();
+	if (texture != nullptr) texture->Release();
+	if (renderTargetView != nullptr) renderTargetView->Release();
+	if (swapChain != nullptr) swapChain->Release();
+	if (context != nullptr) context->Release();
+	if (device != nullptr) device->Release();
 }
 
 //•`‰æŠJnŠÖ”
