@@ -56,7 +56,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
 
         DirectX::StartRendering();
-
+        DirectX::RenderingPolygon();
         DirectX::FinishRendering();
     }
 

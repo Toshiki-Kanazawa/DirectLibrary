@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{a5a5acf6-5cd5-4c89-ba37-db9f7c591f65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -51,5 +54,13 @@
     <Image Include="DirectLibrary.ico">
       <Filter>リソース ファイル</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="vsShader.vsh">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="psShader.psh">
+      <Filter>shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
