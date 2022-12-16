@@ -298,7 +298,26 @@ void DirectX::Release()
 //•`‰æŠJŽnŠÖ”
 void DirectX::StartRendering()
 {
-	float clear_color[4] = { 0.0f, 0.0f, 1.0f, 1.0f };
+	float clear_color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
+	InputManager::Update();
+
+	if (InputManager::Trg(KeyType::A))
+	{
+		vertexList[0].pos[1] = 1.0f;
+
+		clear_color[0] = 1.0f;
+	}
+	if (InputManager::Rel(KeyType::Space))
+	{
+		clear_color[1] = 1.0f;
+	}
+	if (InputManager::On(KeyType::_2))
+	{
+		vertexList[0].pos[1] = 1.0f;
+		clear_color[2] = 1.0f;
+	}
+
 	context->ClearRenderTargetView(renderTargetView, clear_color);
 	context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
@@ -314,6 +333,8 @@ void DirectX::RenderingPolygon()
 {
 	UINT strides = sizeof(Vertex);
 	UINT offset = 0;
+
+	context->UpdateSubresource(vertexBuffer, 0, NULL, &vertexList, 0, 0);
 	context->IASetVertexBuffers(0, 1, &vertexBuffer, &strides, &offset );
 	context->IASetInputLayout(inputLayout);
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);

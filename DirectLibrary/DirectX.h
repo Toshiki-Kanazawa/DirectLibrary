@@ -1,5 +1,6 @@
 #pragma once
 #include <d3d11.h>	//DirectX11をインクルードする
+#include "InputManager.h"
 
 struct Vertex
 {

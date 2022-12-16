@@ -142,12 +142,14 @@
     <ClInclude Include="DirectLibrary.h" />
     <ClInclude Include="DirectX.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectLibrary.cpp" />
     <ClCompile Include="DirectX.cpp" />
+    <ClCompile Include="InputManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectLibrary.rc" />
