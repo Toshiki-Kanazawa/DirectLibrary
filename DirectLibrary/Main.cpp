@@ -4,8 +4,11 @@
 #include "framework.h"
 #include "Main.h"
 #include "Library/DirectX/DirectX.h"
+#include "GameApp/GameApp.h"
 
 #define MAX_LOADSTRING 100
+
+HWND window_handle;
 
 // グローバル変数:
 HINSTANCE hInst;                                // 現在のインターフェイス
@@ -43,25 +46,38 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
+    GameLibrary* gameLibrary = new DirectX();
     //DirectXの初期化
-    DirectX::Init();
+    gameLibrary->Init( window_handle );
+    GameApp* gameApp = new GameApp(gameLibrary);
 
-    // メイン メッセージ ループ:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    bool loop = true;
+    while (loop)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
+            if (msg.message == WM_QUIT)
+            {
+                loop = false;
+                break;
+            }
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
+        //ゲームの実行
+        gameApp->Update();
 
-        DirectX::StartRendering();
-        DirectX::RenderingPolygon();
-        DirectX::FinishRendering();
+        //ゲームの描画
+        gameApp->Render();
     }
 
+    delete gameApp;
+
+    gameLibrary->Release();
+    delete gameLibrary;
+
     //DirectXの解放処理
-    DirectX::Release();
+    //DirectX::Release();
 
     return (int) msg.wParam;
 }
@@ -115,6 +131,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
+
+   window_handle = hWnd;
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);

@@ -140,8 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameApp\GameApp.h" />
     <ClInclude Include="Library\DirectX\DirectX.h" />
     <ClInclude Include="Library\DirectX\InputManager.h" />
+    <ClInclude Include="Library\DirectX\MeshRenderer.h" />
+    <ClInclude Include="Library\GameLibrary.h" />
+    <ClInclude Include="Library\IMeshRenderer.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -168,8 +172,10 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameApp\GameApp.cpp" />
     <ClCompile Include="Library\DirectX\DirectX.cpp" />
     <ClCompile Include="Library\DirectX\InputManager.cpp" />
+    <ClCompile Include="Library\DirectX\MeshRenderer.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

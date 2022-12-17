@@ -1,18 +1,16 @@
 #pragma once
+#include "../GameLibrary.h"
 #include <d3d11.h>	//DirectX11をインクルードする
 #include "InputManager.h"
+#include "MeshRenderer.h"
+#include <Windows.h>
+#include <stdio.h>
 
-struct Vertex
-{
-public:
-	float pos[3];
-	float color[4];
-};
 
 //DirectX11を使うクラス
-class DirectX
+class DirectX : public GameLibrary
 {
-private:
+public:
 	static ID3D11Device* device;			//デバイス
 	static ID3D11DeviceContext* context;	//コンテキスト
 	static IDXGISwapChain* swapChain;		//スワップチェイン
@@ -20,13 +18,6 @@ private:
 	static ID3D11Texture2D* texture;					//レンダーテクスチャー
 	static ID3D11DepthStencilView* depthStencilView;	//デプスステンシルビュー
 
-	//シェーダ
-	static ID3D11VertexShader* vsShader;	//頂点シェーダ
-	static ID3D11PixelShader* psShader;		//ピクセルシェーダ
-	static char* vsData;	//頂点シェーダのバイトデータ
-	static char* psData;	//ピクセルシェーダのバイトデータ
-	static ID3D11Buffer* vertexBuffer;
-	static ID3D11InputLayout* inputLayout;
 
 	//スワップチェイン作成用の構造体を作成する
 	static void CreateSwapChainDesc( HWND window_handle, DXGI_SWAP_CHAIN_DESC* dxgi);
@@ -40,23 +31,29 @@ private:
 	//デプスステンシルを作成する
 	static bool CreateDepthStencilView( HWND window_handle );
 
-	//シェーダを作成する
-	static bool CreateShader();
+	static float clear_color[4];
 
-public:
+//public:
 	//初期化関数
-	static bool Init();
+	bool Init( HWND window_handle ) override;
 
 	//解放関数
-	static void Release();
+	void Release() override;
 
 	//描画を開始する関数(画面を単色でクリアする)
-	static void StartRendering();
+	void StartRendering() override;
 
 	//描画を終了する関数(画面に描画を反映する)
-	static void FinishRendering();
+	void FinishRendering() override;
 
-	//ポリゴンを描画する
-	static void RenderingPolygon();
+	//MeshRendererを生成する
+	IMeshRenderer* CreateMeshRenderer( Vertex* vertex, int size ) override;
+
+	//static ID3D11Device* GetDevice() { return device; }
+	//static ID3D11DeviceContext* GetDeviceContext() { return context; }
+	//static ID3D11RenderTargetView* GetRenderTargetView() { return renderTargetView; }
+	//static ID3D11DepthStencilView* GetDepthStencilView() { return depthStencilView; }
+
+	void SetClearColor(float r, float g, float b, float a) override;
 
 };

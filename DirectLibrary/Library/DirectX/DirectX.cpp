@@ -1,6 +1,4 @@
-#include <stdio.h>
 #include "DirectX.h"
-#include <Windows.h>
 
 #pragma comment(lib,"d3d11.lib")
 
@@ -10,24 +8,7 @@ IDXGISwapChain* DirectX::swapChain = nullptr;		//スワップチェイン
 ID3D11RenderTargetView* DirectX::renderTargetView = nullptr;	//レンダーターゲットビュー
 ID3D11Texture2D* DirectX::texture = nullptr;					//レンダーテクスチャー
 ID3D11DepthStencilView* DirectX::depthStencilView = nullptr;	//デプスステンシルビュー
-char* DirectX::vsData = nullptr;
-char* DirectX::psData = nullptr;
-ID3D11VertexShader* DirectX::vsShader = nullptr;
-ID3D11PixelShader* DirectX::psShader = nullptr;
-ID3D11InputLayout* DirectX::inputLayout = nullptr;
-ID3D11Buffer* DirectX::vertexBuffer = nullptr;
-
-Vertex vertexList[]
-{
-   { { -0.2f,  0.2f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f } },
-	{ {  0.2f, -0.2f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f } },
-	{ { -0.2f, -0.2f, 0.2f }, { 1.0f, 1.0f, 1.0f, 1.0f } },
-};
-
-D3D11_INPUT_ELEMENT_DESC inputLayoutData[]{
-	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,	 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-};
+float DirectX::clear_color[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 //スワップチェインを生成するときに必要なパラメータを用意する
 void DirectX::CreateSwapChainDesc( HWND window_handle, DXGI_SWAP_CHAIN_DESC* dxgi)
@@ -134,107 +115,9 @@ bool DirectX::CreateDepthStencilView(HWND window_handle)
 	return true;
 }
 
-bool DirectX::CreateShader()
-{
-	FILE* fp = nullptr;
-	fopen_s(&fp, "Shader/vsShader.cso", "rb");
-	if (fp == nullptr)
-	{
-		return false;	//シェーダ読み込めなかった
-	}
-
-	//ファイルの長さを取得する
-	fseek(fp, 0, SEEK_END);
-	int size = ftell(fp);
-
-	//ファイルの読み込み位置を先頭に戻す
-	fseek(fp, 0, SEEK_SET);
-
-	//バイト配列をファイルの長さで作成する
-	vsData = new char[size];
-
-	//配列に読み込んだデータを入れる
-	fread_s(vsData, size, size, 1, fp);
-
-	//読み込んだファイルをクローズする
-	fclose(fp);
-
-	fp = nullptr;
-	fopen_s(&fp, "Shader/psShader.cso", "rb");
-
-	if (fp == nullptr)
-	{
-		return false;	//シェーダ読み込めなかった
-	}
-
-	//ファイルの長さを取得する
-	fseek(fp, 0, SEEK_END);
-	int size2 = ftell(fp);
-
-	//ファイルの読み込み位置を先頭に戻す
-	fseek(fp, 0, SEEK_SET);
-
-	//バイト配列をファイルの長さで作成する
-	psData = new char[size2];
-
-	//配列に読み込んだデータを入れる
-	fread_s(psData, size2, size2, 1, fp);
-
-	//読み込んだファイルをクローズする
-	fclose(fp);
-
-	//頂点シェーダを作成する
-	if (FAILED(device->CreateVertexShader(vsData, size, nullptr, &vsShader)))
-	{
-		return false;
-	}
-
-	//ピクセルシェーダを作成する
-	if (FAILED(device->CreatePixelShader(psData, size2, nullptr, &psShader)))
-	{
-		return false;
-	}
-
-	//頂点バッファの作成に必要な構造体を作成する
-	D3D11_BUFFER_DESC buffer_desc;
-	buffer_desc.ByteWidth = sizeof(Vertex) * 3;
-	buffer_desc.Usage = D3D11_USAGE_DEFAULT;
-	buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	buffer_desc.CPUAccessFlags = 0;
-	buffer_desc.MiscFlags = 0;
-	buffer_desc.StructureByteStride = sizeof(Vertex);
-
-	//頂点バッファの作成に必要な構造体を作成するその２
-	D3D11_SUBRESOURCE_DATA init_data;
-	init_data.pSysMem = vertexList;
-	init_data.SysMemPitch = 0;
-	init_data.SysMemSlicePitch = 0;
-
-	//頂点バッファを作成する
-	if (FAILED(device->CreateBuffer(&buffer_desc, &init_data, &vertexBuffer)))
-	{
-		return false;
-	}
-
-	//入力レイアウトを作成する
-	if (FAILED(device->CreateInputLayout(inputLayoutData,
-		ARRAYSIZE(inputLayoutData),
-		vsData,
-		size,
-		&inputLayout)))
-	{
-		return false;
-	}
-
-
-	return true;
-}
-
 //DirectXの初期化処理
-bool DirectX::Init()
+bool DirectX::Init( HWND window_handle )
 {
-	HWND window_handle = FindWindow(L"DirectLibrary", nullptr);
-
 	//デバイスとコンテキストとスワップチェインの作成
 	if (!CreateDeviceAndSwapChain(window_handle))
 	{
@@ -261,19 +144,16 @@ bool DirectX::Init()
 	D3D11_VIEWPORT view_port;
 	view_port.TopLeftX = 0;							// 左上X座標
 	view_port.TopLeftY = 0;							// 左上Y座標
-	view_port.Width = (rect.right - rect.left);		// 横幅
-	view_port.Height = (rect.bottom - rect.top);	// 縦幅
+	view_port.Width = (float)(rect.right - rect.left);		// 横幅
+	view_port.Height = (float)(rect.bottom - rect.top);	// 縦幅
 	view_port.MinDepth = 0.0f;						// 最小深度
 	view_port.MaxDepth = 1.0f;						// 最大深度
 
 	context->RSSetViewports(
 		1,					// 設定するビューポートの数
 		&view_port);		// 設定するビューポート情報のポインタ
-	//シェーダーの作成
-	if (!CreateShader())
-	{
-		return false;
-	}
+
+	MeshRenderer::Init();
 
 	return true;
 }
@@ -281,12 +161,7 @@ bool DirectX::Init()
 //DirectXの解放関数
 void DirectX::Release()
 {
-	if (vsShader != nullptr) vsShader->Release();
-	if (psShader != nullptr) psShader->Release();
-
-	if (vsData != nullptr) delete vsData;
-	if (psData != nullptr) delete psData;
-
+	MeshRenderer::Release();
 	if (depthStencilView != nullptr) depthStencilView->Release();
 	if (texture != nullptr) texture->Release();
 	if (renderTargetView != nullptr) renderTargetView->Release();
@@ -298,28 +173,10 @@ void DirectX::Release()
 //描画開始関数
 void DirectX::StartRendering()
 {
-	float clear_color[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-
-	InputManager::Update();
-
-	if (InputManager::Trg(KeyType::A))
-	{
-		vertexList[0].pos[1] = 1.0f;
-
-		clear_color[0] = 1.0f;
-	}
-	if (InputManager::Rel(KeyType::Space))
-	{
-		clear_color[1] = 1.0f;
-	}
-	if (InputManager::On(KeyType::_2))
-	{
-		vertexList[0].pos[1] = 1.0f;
-		clear_color[2] = 1.0f;
-	}
-
+	//float clear_color[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	context->ClearRenderTargetView(renderTargetView, clear_color);
 	context->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+	context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
 }
 
 //描画終了関数
@@ -329,18 +186,31 @@ void DirectX::FinishRendering()
 }
 
 //ポリゴンを描画する関数
-void DirectX::RenderingPolygon()
+//void DirectX::RenderingPolygon()
+//{
+//	UINT strides = sizeof(Vertex);
+//	UINT offset = 0;
+//
+//	context->UpdateSubresource(vertexBuffer, 0, NULL, &vertexList, 0, 0);
+//	context->IASetVertexBuffers(0, 1, &vertexBuffer, &strides, &offset );
+//	context->IASetInputLayout(inputLayout);
+//	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+//	context->VSSetShader(vsShader, NULL, 0);
+//	context->PSSetShader(psShader, NULL, 0);
+//	context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+//
+//	context->Draw(3, 0);
+//}
+
+IMeshRenderer* DirectX::CreateMeshRenderer( Vertex* vertex, int size )
 {
-	UINT strides = sizeof(Vertex);
-	UINT offset = 0;
+	return new MeshRenderer( vertex, size );
+}
 
-	context->UpdateSubresource(vertexBuffer, 0, NULL, &vertexList, 0, 0);
-	context->IASetVertexBuffers(0, 1, &vertexBuffer, &strides, &offset );
-	context->IASetInputLayout(inputLayout);
-	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	context->VSSetShader(vsShader, NULL, 0);
-	context->PSSetShader(psShader, NULL, 0);
-	context->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
-
-	context->Draw(3, 0);
+void DirectX::SetClearColor(float r, float g, float b, float a)
+{
+	clear_color[0] = r;
+	clear_color[1] = g;
+	clear_color[2] = b;
+	clear_color[3] = a;
 }

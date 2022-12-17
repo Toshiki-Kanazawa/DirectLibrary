@@ -45,6 +45,18 @@
     <ClInclude Include="Main.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Library\GameLibrary.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp\GameApp.h">
+      <Filter>GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DirectX\MeshRenderer.h">
+      <Filter>Library\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\IMeshRenderer.h">
+      <Filter>Library</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectLibrary.rc">
@@ -76,6 +88,12 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp\GameApp.cpp">
+      <Filter>GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\DirectX\MeshRenderer.cpp">
+      <Filter>Library\DirectX</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
