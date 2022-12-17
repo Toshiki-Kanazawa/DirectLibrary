@@ -2,8 +2,8 @@
 //
 
 #include "framework.h"
-#include "DirectLibrary.h"
-#include "DirectX.h"
+#include "Main.h"
+#include "Library/DirectX/DirectX.h"
 
 #define MAX_LOADSTRING 100
 

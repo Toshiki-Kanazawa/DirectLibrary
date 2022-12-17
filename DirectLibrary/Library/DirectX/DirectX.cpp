@@ -137,7 +137,7 @@ bool DirectX::CreateDepthStencilView(HWND window_handle)
 bool DirectX::CreateShader()
 {
 	FILE* fp = nullptr;
-	fopen_s(&fp, "vsShader.cso", "rb");
+	fopen_s(&fp, "Shader/vsShader.cso", "rb");
 	if (fp == nullptr)
 	{
 		return false;	//シェーダ読み込めなかった
@@ -160,7 +160,7 @@ bool DirectX::CreateShader()
 	fclose(fp);
 
 	fp = nullptr;
-	fopen_s(&fp, "psShader.cso", "rb");
+	fopen_s(&fp, "Shader/psShader.cso", "rb");
 
 	if (fp == nullptr)
 	{
