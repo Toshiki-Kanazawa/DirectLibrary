@@ -46,7 +46,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    GameLibrary* gameLibrary = new DirectX();
+    GameLibrary* gameLibrary = new DirectX11();
     //DirectXの初期化
     gameLibrary->Init( window_handle );
     GameApp* gameApp = new GameApp(gameLibrary);

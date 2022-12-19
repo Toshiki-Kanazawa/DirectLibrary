@@ -2,16 +2,17 @@
 
 #pragma comment(lib,"d3d11.lib")
 
-ID3D11Device* DirectX::device = nullptr;			//デバイス
-ID3D11DeviceContext* DirectX::context = nullptr;	//コンテキスト
-IDXGISwapChain* DirectX::swapChain = nullptr;		//スワップチェイン
-ID3D11RenderTargetView* DirectX::renderTargetView = nullptr;	//レンダーターゲットビュー
-ID3D11Texture2D* DirectX::texture = nullptr;					//レンダーテクスチャー
-ID3D11DepthStencilView* DirectX::depthStencilView = nullptr;	//デプスステンシルビュー
-float DirectX::clear_color[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+ID3D11Device* DirectX11::device = nullptr;			//デバイス
+ID3D11DeviceContext* DirectX11::context = nullptr;	//コンテキスト
+IDXGISwapChain* DirectX11::swapChain = nullptr;		//スワップチェイン
+ID3D11RenderTargetView* DirectX11::renderTargetView = nullptr;	//レンダーターゲットビュー
+ID3D11Texture2D* DirectX11::texture = nullptr;					//レンダーテクスチャー
+ID3D11DepthStencilView* DirectX11::depthStencilView = nullptr;	//デプスステンシルビュー
+float DirectX11::clear_color[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+D3D11_VIEWPORT DirectX11::viewPort = {};
 
 //スワップチェインを生成するときに必要なパラメータを用意する
-void DirectX::CreateSwapChainDesc( HWND window_handle, DXGI_SWAP_CHAIN_DESC* dxgi)
+void DirectX11::CreateSwapChainDesc( HWND window_handle, DXGI_SWAP_CHAIN_DESC* dxgi)
 {
 	RECT rect;
 	GetClientRect(window_handle, &rect);
@@ -31,7 +32,7 @@ void DirectX::CreateSwapChainDesc( HWND window_handle, DXGI_SWAP_CHAIN_DESC* dxg
 }
 
 //デバイスとスワップチェインとコンテキストを作成する
-bool DirectX::CreateDeviceAndSwapChain(HWND window_handle)
+bool DirectX11::CreateDeviceAndSwapChain(HWND window_handle)
 {
 	DXGI_SWAP_CHAIN_DESC dxgi;
 	CreateSwapChainDesc( window_handle, &dxgi);
@@ -59,7 +60,7 @@ bool DirectX::CreateDeviceAndSwapChain(HWND window_handle)
 }
 
 //レンダーターゲットビューの作成
-bool DirectX::CreateRenderTargetView()
+bool DirectX11::CreateRenderTargetView()
 {
 	ID3D11Texture2D* back_buffer;
 	if (FAILED(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&back_buffer)))
@@ -78,7 +79,7 @@ bool DirectX::CreateRenderTargetView()
 }
 
 //デプスステンシルビューの作成
-bool DirectX::CreateDepthStencilView(HWND window_handle)
+bool DirectX11::CreateDepthStencilView(HWND window_handle)
 {
 	RECT rect;
 	GetClientRect(window_handle, &rect);
@@ -116,7 +117,7 @@ bool DirectX::CreateDepthStencilView(HWND window_handle)
 }
 
 //DirectXの初期化処理
-bool DirectX::Init( HWND window_handle )
+bool DirectX11::Init( HWND window_handle )
 {
 	//デバイスとコンテキストとスワップチェインの作成
 	if (!CreateDeviceAndSwapChain(window_handle))
@@ -141,17 +142,17 @@ bool DirectX::Init( HWND window_handle )
 	GetClientRect(window_handle, &rect);
 
 	//ビューポートの設定
-	D3D11_VIEWPORT view_port;
-	view_port.TopLeftX = 0;							// 左上X座標
-	view_port.TopLeftY = 0;							// 左上Y座標
-	view_port.Width = (float)(rect.right - rect.left);		// 横幅
-	view_port.Height = (float)(rect.bottom - rect.top);	// 縦幅
-	view_port.MinDepth = 0.0f;						// 最小深度
-	view_port.MaxDepth = 1.0f;						// 最大深度
+	ZeroMemory(&viewPort, sizeof(D3D11_VIEWPORT));
+	viewPort.TopLeftX = 0;							// 左上X座標
+	viewPort.TopLeftY = 0;							// 左上Y座標
+	viewPort.Width = (float)(rect.right - rect.left);		// 横幅
+	viewPort.Height = (float)(rect.bottom - rect.top);	// 縦幅
+	viewPort.MinDepth = 0.0f;						// 最小深度
+	viewPort.MaxDepth = 1.0f;						// 最大深度
 
 	context->RSSetViewports(
 		1,					// 設定するビューポートの数
-		&view_port);		// 設定するビューポート情報のポインタ
+		&viewPort);		// 設定するビューポート情報のポインタ
 
 	MeshRenderer::Init();
 
@@ -159,7 +160,7 @@ bool DirectX::Init( HWND window_handle )
 }
 
 //DirectXの解放関数
-void DirectX::Release()
+void DirectX11::Release()
 {
 	MeshRenderer::Release();
 	if (depthStencilView != nullptr) depthStencilView->Release();
@@ -171,7 +172,7 @@ void DirectX::Release()
 }
 
 //描画開始関数
-void DirectX::StartRendering()
+void DirectX11::StartRendering()
 {
 	//float clear_color[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	context->ClearRenderTargetView(renderTargetView, clear_color);
@@ -180,7 +181,7 @@ void DirectX::StartRendering()
 }
 
 //描画終了関数
-void DirectX::FinishRendering()
+void DirectX11::FinishRendering()
 {
 	swapChain->Present(0, 0);
 }
@@ -202,12 +203,12 @@ void DirectX::FinishRendering()
 //	context->Draw(3, 0);
 //}
 
-IMeshRenderer* DirectX::CreateMeshRenderer( Vertex* vertex, int size )
+IMeshRenderer* DirectX11::CreateMeshRenderer( VertexData* data )
 {
-	return new MeshRenderer( vertex, size );
+	return new MeshRenderer( data );
 }
 
-void DirectX::SetClearColor(float r, float g, float b, float a)
+void DirectX11::SetClearColor(float r, float g, float b, float a)
 {
 	clear_color[0] = r;
 	clear_color[1] = g;

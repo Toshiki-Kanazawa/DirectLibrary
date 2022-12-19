@@ -3,9 +3,40 @@
 
 Vertex vertexList[]
 {
-    Vertex( -0.2f,  0.2f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f ),
-	Vertex( 0.2f, -0.2f, 0.0f , 1.0f, 1.0f, 1.0f, 1.0f ),
-	Vertex( -0.2f, -0.2f, 0.0f , 1.0f, 1.0f, 1.0f, 1.0f),
+    Vertex(-0.5f,  0.5f, -0.5f , 1.0f, 0.0f, 0.0f, 1.0f ),
+    Vertex( 0.5f,  0.5f, -0.5f , 1.0f, 0.0f, 0.0f, 1.0f ),
+    Vertex(-0.5f, -0.5f, -0.5f , 1.0f, 0.0f, 0.0f, 1.0f ),
+    Vertex( 0.5f, -0.5f, -0.5f , 1.0f, 0.0f, 0.0f, 1.0f ),
+    Vertex(-0.5f,  0.5f,  0.5f , 0.0f, 1.0f, 1.0f, 1.0f ),
+    Vertex(-0.5f, -0.5f,  0.5f , 0.0f, 1.0f, 1.0f, 1.0f ),
+    Vertex( 0.5f,  0.5f,  0.5f , 0.0f, 1.0f, 1.0f, 1.0f ),
+    Vertex( 0.5f, -0.5f,  0.5f , 0.0f, 1.0f, 1.0f, 1.0f ),
+    Vertex(-0.5f,  0.5f,  0.5f , 1.0f, 1.0f, 0.0f, 1.0f ),
+    Vertex(-0.5f,  0.5f, -0.5f , 1.0f, 1.0f, 0.0f, 1.0f ),
+    Vertex(-0.5f, -0.5f,  0.5f , 1.0f, 1.0f, 0.0f, 1.0f ),
+    Vertex(-0.5f, -0.5f, -0.5f , 1.0f, 1.0f, 0.0f, 1.0f ),
+    Vertex( 0.5f,  0.5f,  0.5f , 0.0f, 0.0f, 1.0f, 1.0f ),
+    Vertex( 0.5f, -0.5f,  0.5f , 0.0f, 0.0f, 1.0f, 1.0f ),
+    Vertex( 0.5f,  0.5f, -0.5f , 0.0f, 0.0f, 1.0f, 1.0f ),
+    Vertex( 0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f ),
+    Vertex(-0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f, 1.0f ),
+    Vertex( 0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f, 1.0f ),
+    Vertex(-0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 1.0f, 1.0f ),
+    Vertex( 0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 1.0f, 1.0f ),
+    Vertex(-0.5f, -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f ),
+    Vertex(-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f ),
+    Vertex( 0.5f, -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f ),
+    Vertex( 0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f ), 
+};
+
+WORD indexList[]
+{
+     0,  1,  2,     3,  2,  1,
+     4,  5,  6,     7,  6,  5,
+     8,  9, 10,    11, 10,  9,
+    12, 13, 14,    15, 14, 13,
+    16, 17, 18,    19, 18, 17,
+    20, 21, 22,    23, 22, 21,
 };
 
 
@@ -46,7 +77,12 @@ void GameApp::Render()
 
 TestScene::TestScene(GameLibrary* gameLibrary)
 {
-	mesh = gameLibrary->CreateMeshRenderer( vertexList, 3 );
+    auto data = VertexData();
+    data.vertex = vertexList;
+    data.indexes = indexList;
+    data.size = 24;
+    data.indexSize = 36;
+	mesh = gameLibrary->CreateMeshRenderer( &data );
 }
 
 TestScene::~TestScene()

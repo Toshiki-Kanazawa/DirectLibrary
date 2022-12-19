@@ -8,7 +8,7 @@
 
 
 //DirectX11を使うクラス
-class DirectX : public GameLibrary
+class DirectX11 : public GameLibrary
 {
 public:
 	static ID3D11Device* device;			//デバイス
@@ -17,7 +17,7 @@ public:
 	static ID3D11RenderTargetView* renderTargetView;	//レンダーターゲットビュー
 	static ID3D11Texture2D* texture;					//レンダーテクスチャー
 	static ID3D11DepthStencilView* depthStencilView;	//デプスステンシルビュー
-
+	static D3D11_VIEWPORT viewPort;
 
 	//スワップチェイン作成用の構造体を作成する
 	static void CreateSwapChainDesc( HWND window_handle, DXGI_SWAP_CHAIN_DESC* dxgi);
@@ -47,7 +47,7 @@ public:
 	void FinishRendering() override;
 
 	//MeshRendererを生成する
-	IMeshRenderer* CreateMeshRenderer( Vertex* vertex, int size ) override;
+	IMeshRenderer* CreateMeshRenderer( VertexData* data ) override;
 
 	//static ID3D11Device* GetDevice() { return device; }
 	//static ID3D11DeviceContext* GetDeviceContext() { return context; }

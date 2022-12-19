@@ -10,7 +10,7 @@ public:
 	virtual void StartRendering() = 0;
 	virtual void FinishRendering() = 0;
 
-	virtual IMeshRenderer* CreateMeshRenderer( Vertex* vertex, int size ) = 0;
+	virtual IMeshRenderer* CreateMeshRenderer( VertexData* data ) = 0;
 	virtual void SetClearColor(float r, float g, float b, float a) = 0;
 
 };

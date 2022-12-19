@@ -16,8 +16,10 @@ public:
 class VertexData
 {
 public:
-	Vertex* vertex;
-	int size;
+	Vertex* vertex;	//頂点配列
+	WORD* indexes;	//インデックス配列
+	int size;		//頂点配列の長さ
+	int indexSize;	//インデックス配列の長さ
 };
 
 //GameAppからアクセスるするためのインターフェイスクラス
@@ -25,6 +27,6 @@ class IMeshRenderer
 {
 public:
 	virtual bool SetData( VertexData* data) = 0;
-	virtual bool SetData(Vertex* vertex, int size) = 0;
+	//virtual bool SetData(Vertex* vertex, int size) = 0;
 	virtual void Draw() = 0;
 };
