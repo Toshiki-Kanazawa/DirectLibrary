@@ -42,12 +42,21 @@ WORD indexList[]
 
 GameApp::GameApp(GameLibrary* gameLibrary)
 {
+    camera = Camera();
+    camera.posX = 0.0f;
+    camera.posY = 0.0f;
+    camera.posZ = -2.0f;
+    camera.focusX = 0.0f;
+    camera.focusY = 0.0f;
+    camera.focusZ = 0.0f;
 	this->gameLibrary = gameLibrary;
 	scene = new TestScene( gameLibrary );
 }
 
 void GameApp::Update()
 {
+    gameLibrary->UpdateCamera(camera);
+
 	InputManager::Update();
 	scene->Update(1.0f);
 
@@ -60,6 +69,27 @@ void GameApp::Update()
 	{
 		gameLibrary->SetClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 	}
+
+    if (InputManager::On(KeyType::Left))
+    {
+        camera.posX -= 0.01f;
+        camera.focusX -= 0.01f;
+    }
+    if (InputManager::On(KeyType::Right))
+    {
+        camera.posX += 0.01f;
+        camera.focusX += 0.01f;
+    }
+    if (InputManager::On(KeyType::Up))
+    {
+        camera.posZ += 0.01f;
+        camera.focusZ += 0.01f;
+    }
+    if (InputManager::On(KeyType::Down))
+    {
+        camera.posZ -= 0.01f;
+        camera.focusZ -= 0.01f;
+    }
 
 }
 

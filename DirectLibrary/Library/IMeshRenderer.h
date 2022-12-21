@@ -1,5 +1,18 @@
 #pragma once
 
+class Camera
+{
+public:
+	float posX;
+	float posY;
+	float posZ;
+
+	float focusX;
+	float focusY;
+	float focusZ;
+};
+
+
 class Vertex
 {
 public:

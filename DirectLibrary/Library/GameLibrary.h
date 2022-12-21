@@ -12,5 +12,6 @@ public:
 
 	virtual IMeshRenderer* CreateMeshRenderer( VertexData* data ) = 0;
 	virtual void SetClearColor(float r, float g, float b, float a) = 0;
+	virtual void UpdateCamera(const Camera& camera) = 0;
 
 };

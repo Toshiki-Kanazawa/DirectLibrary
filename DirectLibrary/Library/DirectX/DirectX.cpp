@@ -215,3 +215,8 @@ void DirectX11::SetClearColor(float r, float g, float b, float a)
 	clear_color[2] = b;
 	clear_color[3] = a;
 }
+
+void DirectX11::UpdateCamera(const Camera& camera)
+{
+	MeshRenderer::UpdateCamera(camera);
+}

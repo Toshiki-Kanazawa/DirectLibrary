@@ -24,6 +24,7 @@ class GameApp
 private:
 	GameLibrary* gameLibrary;
 	IScene* scene;
+	Camera camera;
 public:
 	GameApp(GameLibrary* gameLibrary);
 	void Update();

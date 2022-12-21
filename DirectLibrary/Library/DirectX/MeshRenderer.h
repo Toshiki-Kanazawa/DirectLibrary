@@ -32,6 +32,8 @@ public:
 	static bool Init();
 	static void Release();
 
+	static void UpdateCamera( const Camera& camera );
+
 	MeshRenderer( VertexData* data );
 	~MeshRenderer();
 	bool SetData( VertexData* data) override;
