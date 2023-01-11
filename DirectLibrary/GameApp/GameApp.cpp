@@ -29,6 +29,39 @@ Vertex vertexList[]
     Vertex( 0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f ), 
 };
 
+Vertex vertex2[]
+{
+    Vertex(-0.5f,  0.5f, -0.5f , 1.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(0.5f,  0.5f, -0.5f , 1.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(-0.5f, -0.5f, -0.5f , 1.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(0.5f, -0.5f, -0.5f , 1.0f, 1.0f, 0.0f, 1.0f),
+
+    Vertex(-0.5f,  0.5f,  0.5f , 0.0f, 1.0f, 1.0f, 1.0f),
+    Vertex(-0.5f, -0.5f,  0.5f , 0.0f, 1.0f, 1.0f, 1.0f),
+    Vertex(0.5f,  0.5f,  0.5f , 0.0f, 1.0f, 1.0f, 1.0f),
+    Vertex(0.5f, -0.5f,  0.5f , 0.0f, 1.0f, 1.0f, 1.0f),
+
+    Vertex(-0.5f,  0.5f,  0.5f , 1.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(-0.5f,  0.5f, -0.5f , 1.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(-0.5f, -0.5f,  0.5f , 1.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(-0.5f, -0.5f, -0.5f , 1.0f, 1.0f, 0.0f, 1.0f),
+
+    Vertex(0.5f,  0.5f,  0.5f , 0.0f, 0.0f, 1.0f, 1.0f),
+    Vertex(0.5f, -0.5f,  0.5f , 0.0f, 0.0f, 1.0f, 1.0f),
+    Vertex(0.5f,  0.5f, -0.5f , 0.0f, 0.0f, 1.0f, 1.0f),
+    Vertex(0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 1.0f),
+
+    Vertex(-0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f, 1.0f),
+    Vertex(0.5f,  0.5f,  0.5f, 1.0f, 0.0f, 1.0f, 1.0f),
+    Vertex(-0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 1.0f, 1.0f),
+    Vertex(0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 1.0f, 1.0f),
+
+    Vertex(-0.5f, -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(0.5f, -0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f),
+
+};
 WORD indexList[]
 {
      0,  1,  2,     3,  2,  1,
@@ -109,6 +142,7 @@ TestScene::TestScene(GameLibrary* gameLibrary)
 {
     auto data = VertexData();
     data.vertex = vertexList;
+    data.vertex = vertex2;
     data.indexes = indexList;
     data.size = 24;
     data.indexSize = 36;
