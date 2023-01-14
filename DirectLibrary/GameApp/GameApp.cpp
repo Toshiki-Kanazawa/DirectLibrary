@@ -89,7 +89,6 @@ void GameApp::Update()
         camera.posZ -= 0.01f;
         camera.focusZ -= 0.01f;
     }
-
 }
 
 void GameApp::Render()

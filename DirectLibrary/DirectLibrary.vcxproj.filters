@@ -60,6 +60,9 @@
     <ClInclude Include="GameApp\Stage\Stage.h">
       <Filter>GameApp</Filter>
     </ClInclude>
+    <ClInclude Include="GameApp\Player\Player.h">
+      <Filter>GameApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectLibrary.rc">
@@ -99,6 +102,9 @@
       <Filter>Library\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="GameApp\Stage\Stage.cpp">
+      <Filter>GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp\Player\Player.cpp">
       <Filter>GameApp</Filter>
     </ClCompile>
   </ItemGroup>
