@@ -12,6 +12,7 @@ class TestScene : public IScene
 {
 private:
 	IMeshRenderer* mesh;
+	IMeshRenderer* mesh2;
 public:
 	TestScene( GameLibrary* gameLibrary );
 	~TestScene();
@@ -24,9 +25,10 @@ class GameApp
 private:
 	GameLibrary* gameLibrary;
 	IScene* scene;
-	Camera camera;
+	static Camera camera;
 public:
 	GameApp(GameLibrary* gameLibrary);
 	void Update();
 	void Render();
+	static const Camera& GetCamera(){ return camera; }
 };

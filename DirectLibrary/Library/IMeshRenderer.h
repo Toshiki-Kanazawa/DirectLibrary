@@ -42,4 +42,5 @@ public:
 	virtual bool SetData( VertexData* data) = 0;
 	//virtual bool SetData(Vertex* vertex, int size) = 0;
 	virtual void Draw() = 0;
+	virtual void SetContextBuffer(const GameObject& gameObject, const Camera& camera ) = 0;
 };

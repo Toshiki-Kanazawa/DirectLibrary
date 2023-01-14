@@ -39,4 +39,5 @@ public:
 	bool SetData( VertexData* data) override;
 	//bool SetData(Vertex* vertex, int size) override;
 	void Draw() override;
+	void SetContextBuffer(const GameObject& gameObject, const Camera& camera );
 };
