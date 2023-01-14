@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include "Vector3.h"
 #include "IMeshRenderer.h"
 
 class GameLibrary

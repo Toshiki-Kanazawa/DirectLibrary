@@ -271,3 +271,29 @@ void MeshRenderer::Draw()
 	//DirectX::context->Draw(size, 0);
 	DirectX11::context->DrawIndexed(size, 0, 0);
 }
+
+void MeshRenderer::SetContextBuffer(const GameObject& gameObject, const Camera& camera )
+{
+	//ワールド座標は固定値
+	XMMATRIX worldMatrix = XMMatrixTranslation(gameObject.pos.x, gameObject.pos.y, gameObject.pos.z);
+
+	XMVECTOR eye = XMVectorSet(camera.posX, camera.posY, camera.posZ, 0.0f);	//カメラの座標
+	XMVECTOR focus = XMVectorSet(camera.focusX, camera.focusY, camera.focusZ, 0.0f);	//カメラが見ている座標
+	XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);		//カメラの上向きのベクトル
+	XMMATRIX viewMatrix = XMMatrixLookAtLH(eye, focus, up);
+
+	float    fov = XMConvertToRadians(45.0f);
+	float    aspect = DirectX11::viewPort.Width / DirectX11::viewPort.Height;
+	float    nearZ = 0.1f;
+	float    farZ = 100.0f;
+	XMMATRIX projMatrix = XMMatrixPerspectiveFovLH(fov, aspect, nearZ, farZ);
+
+
+	//コンスタントバッファーを更新する
+	ConstantBuffer cb;
+	XMStoreFloat4x4(&cb.world, XMMatrixTranspose(worldMatrix));
+	XMStoreFloat4x4(&cb.view, XMMatrixTranspose(viewMatrix));
+	XMStoreFloat4x4(&cb.projection, XMMatrixTranspose(projMatrix));
+	DirectX11::context->UpdateSubresource(constantBuffer, 0, NULL, &cb, 0, 0);
+
+}
