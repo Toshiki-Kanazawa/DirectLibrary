@@ -4,7 +4,7 @@
 class Player
 {
 private:
-	//ModelObject* player = nullptr;
+	ModelObject* player = nullptr;
 public:
 	Player();
 	~Player();
