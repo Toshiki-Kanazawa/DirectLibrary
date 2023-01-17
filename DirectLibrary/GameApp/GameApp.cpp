@@ -40,7 +40,7 @@ GameApp::GameApp(GameLibrary* gameLibrary)
 //ゲームの更新処理(毎フレーム呼ばれる)
 void GameApp::Update()
 {
-    //gameLibrary->UpdateCamera(camera);
+    gameLibrary->UpdateCamera(camera);
 
     //入力の更新
 	InputManager::Update();
@@ -49,7 +49,7 @@ void GameApp::Update()
     stage->Update();
 
     //プレイヤーの更新
-    //player.Update();
+    player->Update();
 
 	//scene->Update(1.0f);
 	//gameLibrary->SetClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -87,10 +87,10 @@ void GameApp::Update()
     //    //camera.focusZ -= 0.01f;
     //}
 
-    //if (InputManager::On(KeyType::W))
-    //{
-    //    camera.posY += 0.01f;
-    //}
+    if (InputManager::On(KeyType::W))
+    {
+        camera.posY += 0.01f;
+    }
     //if (InputManager::On(KeyType::S))
     //{
     //    camera.posY -= 0.01f;
@@ -101,6 +101,8 @@ void GameApp::Update()
 //ゲームの描画処理(毎フレーム呼ばれる)
 void GameApp::Render()
 {
+    
+
     //描画の初期化
     gameLibrary->StartRendering();
 
@@ -108,7 +110,7 @@ void GameApp::Render()
     stage->Render();
 
     //プレイヤーの描画
-    //player.Render();
+    player->Render();
 
     //シーンの描画
     //scene->Render();

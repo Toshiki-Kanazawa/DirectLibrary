@@ -2,6 +2,7 @@
 #include "../Library/GameLibrary.h"
 #include "Player/Player.h"
 #include "Stage/Stage.h"
+#include "../Library/DirectX/InputManager.h"
 
 //class IScene
 //{
