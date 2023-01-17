@@ -3,6 +3,8 @@
 #include "../ModelObject.h"
 
 class Stage{
+private:
+	ModelObject* Floor;
 public:
 	Stage();
 	~Stage();
@@ -10,6 +12,4 @@ public:
 	void Start();
 	void Update();
 	void Render();
-private:
-	ModelObject* Floor;
 };
