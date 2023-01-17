@@ -18,9 +18,9 @@ void Player::Start()
 	player->rotX = 100;
 	player->rotY = 100;
 	player->rotZ = 100;
-	player->scaleX = 100;
-	player->scaleY = 100;
-	player->scaleZ = 100;
+	player->scaleX = 1;
+	player->scaleY = 1;
+	player->scaleZ = 1;
 }
 
 void Player::Update()
@@ -30,5 +30,5 @@ void Player::Update()
 
 void Player::Render()
 {
-
+	player->Render();
 }
