@@ -9,7 +9,9 @@ Stage::~Stage() {
 }
 
 void Stage::Start() {
-
+	Floor->posX = 0.0f;
+	Floor->posY = 0.0f;
+	Floor->posZ = 0.0f;
 }
 
 void Stage::Update() {
