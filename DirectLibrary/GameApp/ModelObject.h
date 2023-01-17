@@ -3,7 +3,11 @@
 
 class ModelObject
 {
+private:
+	IMeshRenderer* mesh;	//ƒƒbƒVƒ…
 public:
+	static Camera* camera;	//ƒJƒƒ‰
+
 	ModelObject(const std::wstring& filePath);
 	~ModelObject();
 
