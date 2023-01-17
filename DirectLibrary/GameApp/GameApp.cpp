@@ -113,7 +113,6 @@ void GameApp::Update()
     {
         camera.posY -= 0.01f;
     }
-
 }
 
 void GameApp::Render()
