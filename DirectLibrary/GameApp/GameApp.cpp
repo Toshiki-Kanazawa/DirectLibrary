@@ -22,6 +22,14 @@ GameApp::GameApp(GameLibrary* gameLibrary)
 
     //カメラを設定する
     ModelObject::camera = &camera;
+    ModelObject::gameLib = gameLibrary;
+
+    //ステージを生成する
+    stage = new Stage();
+    stage->Start();
+
+    //プレイヤーを生成する
+    player = new Player();
     
     //gameObject.pos = Vector3(0, 0, 0);
     //gameObject.rot = Vector3(0, 0, 0);
@@ -38,7 +46,7 @@ void GameApp::Update()
 	InputManager::Update();
 
     //ステージの更新
-    //stage.Update();
+    stage->Update();
 
     //プレイヤーの更新
     //player.Update();
@@ -97,7 +105,7 @@ void GameApp::Render()
     gameLibrary->StartRendering();
 
     //ステージの描画
-    //stage.Render();
+    stage->Render();
 
     //プレイヤーの描画
     //player.Render();

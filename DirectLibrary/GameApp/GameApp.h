@@ -16,6 +16,9 @@ private:
 	GameLibrary* gameLibrary;
 	//IScene* scene;
 	static Camera camera;
+
+	Player* player;	//プレイヤー
+	Stage* stage;	//ステージ
 public:
 	GameApp(GameLibrary* gameLibrary);
 	void Update();

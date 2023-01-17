@@ -1,11 +1,14 @@
 #pragma once
 #include <string>
+#include "../Library/GameLibrary.h"
 
 class ModelObject
 {
 private:
+	VertexData* vertexData;	//頂点データ
 	IMeshRenderer* mesh;	//メッシュ
 public:
+	static GameLibrary* gameLib;
 	static Camera* camera;	//カメラ
 
 	ModelObject(const std::wstring& filePath);
