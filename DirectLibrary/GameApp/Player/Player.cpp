@@ -26,38 +26,37 @@ void Player::Start()
 
 void Player::Update()
 {
-	vy = 0.0f;
+	player->posY += velocity; // 常にプレイヤーに重力をかける
+	velocity -= gravity;      // 常に移動量に重力を加算する
 
-	if (player->posY > 0)    // ジャンプ中
+	if (player->posY >= 0)    // ジャンプ中はジャンプできない
 	{
-		jump_flag = false;  // ジャンプできない
-
-		vy += gravity;      // 移動量に重力を加える
-		player->posY -= vy; // プレイヤーに重力を加える
+		jump_flag = true;
+	}
+	else
+	{
+		jump_flag = false;
 	}
 
 	if (InputManager::On(KeyType::Right)) // 右
 	{
-		player->posX += 0.01f;
+		player->posX += move_speed;
 	}
 	if (InputManager::On(KeyType::Left))  // 左
 	{
-		player->posX -= 0.01f;
+		player->posX -= move_speed;
 	}
 	if (InputManager::On(KeyType::Up))    // 奥
 	{
-		player->posZ += 0.01f;
+		player->posZ += move_speed;
 	}
 	if (InputManager::On(KeyType::Down))  // 手前
 	{
-		player->posZ -= 0.01f;
+		player->posZ -= move_speed;
 	}
-	if (InputManager::On(KeyType::Space)) // ジャンプ
+	if (InputManager::Trg(KeyType::Space) && jump_flag == false) // ジャンプ
 	{
-		if (!jump_flag)
-		{
-			Jump();
-		}
+		velocity = jump_hight;
 	}
 }
 
@@ -83,14 +82,4 @@ void Player::SetPositon(Vector3 vec)
 	player->posX = vec.x;
 	player->posY = vec.y;
 	player->posZ = vec.z;
-}
-
-void Player::Jump()
-{
-	jump_flag = true;
-
-	if (player->posY < jump_hight)
-	{
-		player->posY += jump_speed;
-	}
 }
