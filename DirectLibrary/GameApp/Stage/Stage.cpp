@@ -3,8 +3,8 @@
 Stage::Stage() {
 	Floor = new ModelObject( L"Floor.txt" );
 
-	WorldSize_min = Vector3(-100, -100, -100);
-	WorldSize_max = Vector3(100, 100, 100);
+	WorldSize_min = Vector3(-10, -10, -10);
+	WorldSize_max = Vector3(10, 10, 10);
 }
 
 Stage::~Stage() {
