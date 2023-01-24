@@ -229,15 +229,6 @@ bool MeshRenderer::SetData( VertexData* data)
 	return true;
 }
 
-//bool MeshRenderer::SetData(Vertex* vertex, int size)
-//{
-//	//頂点バッファを更新する
-//	this->vertex = vertex;
-//	this->size = size;
-//
-//	return true;
-//}
-
 void MeshRenderer::Draw()
 {
 	UINT strides = sizeof(Vertex);
