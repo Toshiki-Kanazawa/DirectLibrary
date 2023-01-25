@@ -55,6 +55,5 @@ public:
 	//static ID3D11DepthStencilView* GetDepthStencilView() { return depthStencilView; }
 
 	void SetClearColor(float r, float g, float b, float a) override;
-	void UpdateCamera(const Camera& camera) override;
 
 };

@@ -3,22 +3,19 @@
 #include "../Library/Vector3.h"
 #include "ModelObject.h"
 
-Camera GameApp::camera = {};
+float Camera::posX = 0.0f;
+float Camera::posY = 50.0f;
+float Camera::posZ = -50.0f;
+float Camera::focusX = 0.0f;
+float Camera::focusY = 0.0f;
+float Camera::focusZ = 0.0f;
 
 GameApp::GameApp(GameLibrary* gameLibrary)
 {
-    camera = Camera();
-    camera.posX = 0.0f;
-    camera.posY = 50.0f;
-    camera.posZ = -50.0f;
-    camera.focusX = 0.0f;
-    camera.focusY = 0.0f;
-    camera.focusZ = 0.0f;
 	this->gameLibrary = gameLibrary;
 	//scene = new TestScene( gameLibrary );
 
     //カメラを設定する
-    ModelObject::camera = &camera;
     ModelObject::gameLib = gameLibrary;
 
     //ステージを生成する
@@ -34,8 +31,6 @@ GameApp::GameApp(GameLibrary* gameLibrary)
 //ゲームの更新処理(毎フレーム呼ばれる)
 void GameApp::Update()
 {
-    gameLibrary->UpdateCamera(camera);
-
     //入力の更新
 	InputManager::Update();
 
