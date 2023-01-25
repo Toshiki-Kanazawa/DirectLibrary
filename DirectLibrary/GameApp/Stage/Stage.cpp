@@ -38,9 +38,9 @@ Vector3 Stage::GetPlayerNextPos(Vector3 pl_pos, Vector3 pl_size)
 }
 
 void Stage::Start() {
-	Floor->posX = 0.0f;
+	Floor->posX = 10.0f;
 	Floor->posY = 0.0f;
-	Floor->posZ = 0.0f;
+	Floor->posZ = 10.0f;
 }
 
 void Stage::Update() {
