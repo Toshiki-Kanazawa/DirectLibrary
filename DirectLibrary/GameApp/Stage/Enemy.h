@@ -13,10 +13,10 @@ private:
 	float moveSpeed;
 
 	bool OutStageFlag;
-	bool ActiveFlag;
 public:
 	Enemy();
 	~Enemy();
+	bool ActiveFlag;
 
 	void SetUp(Vector3 SetPos, Vector3 SetDir, float SetSpd);
 
