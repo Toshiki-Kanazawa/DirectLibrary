@@ -19,7 +19,7 @@ private:
 	static ID3D11PixelShader* psShader;		//ピクセルシェーダ
 	static char* vsData;	//頂点シェーダのバイトデータ
 	static char* psData;	//ピクセルシェーダのバイトデータ
-	static ID3D11InputLayout* inputLayout;
+	static ID3D11InputLayout* inputLayout;	//インプットレイアウト
 
 	static ID3D11Buffer* constantBuffer;	//コンスタントバッファー
 
@@ -28,16 +28,17 @@ private:
 	Vertex* vertex;
 	UINT size;
 
+	bool CreateVertexBuffer( const Vertex& vertexes, int size );
+	bool CreateIndexBuffer( const WORD& indexes, int size );
+
 public:
 	static bool Init();
 	static void Release();
 
-	static void UpdateCamera( const Camera& camera );
-
 	MeshRenderer( VertexData* data );
 	~MeshRenderer();
-	bool SetData( VertexData* data) override;
-	//bool SetData(Vertex* vertex, int size) override;
+	//bool SetData( VertexData* data) override;
+	//void SetContextBuffer(const GameObject& gameObject, const Camera& camera );
 	void Draw() override;
-	void SetContextBuffer(const GameObject& gameObject, const Camera& camera );
+	void SetData(const GameObject& gameObject);
 };

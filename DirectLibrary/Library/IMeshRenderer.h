@@ -3,13 +3,13 @@
 class Camera
 {
 public:
-	float posX;
-	float posY;
-	float posZ;
+	static float posX;
+	static float posY;
+	static float posZ;
 
-	float focusX;
-	float focusY;
-	float focusZ;
+	static float focusX;
+	static float focusY;
+	static float focusZ;
 };
 
 
@@ -35,12 +35,13 @@ public:
 	int indexSize;	//インデックス配列の長さ
 };
 
-//GameAppからアクセスるするためのインターフェイスクラス
+//GameAppからアクセスするためのインターフェイスクラス
 class IMeshRenderer
 {
 public:
-	virtual bool SetData( VertexData* data) = 0;
+	virtual void SetData(const GameObject& gameObject) = 0;
+	//virtual bool SetData( VertexData* data) = 0;
 	//virtual bool SetData(Vertex* vertex, int size) = 0;
 	virtual void Draw() = 0;
-	virtual void SetContextBuffer(const GameObject& gameObject, const Camera& camera ) = 0;
+	//virtual void SetContextBuffer(const GameObject& gameObject, const Camera& camera ) = 0;
 };

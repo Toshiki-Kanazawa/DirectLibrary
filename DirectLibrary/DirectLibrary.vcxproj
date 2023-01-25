@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameApp\EnemyManager\EnemyManager.h" />
     <ClInclude Include="GameApp\GameApp.h" />
     <ClInclude Include="GameApp\ModelObject.h" />
     <ClInclude Include="GameApp\Player\Player.h" />
@@ -176,6 +177,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GameApp\EnemyManager\EnemyManager.cpp" />
     <ClCompile Include="GameApp\GameApp.cpp" />
     <ClCompile Include="GameApp\ModelObject.cpp" />
     <ClCompile Include="GameApp\Player\Player.cpp" />

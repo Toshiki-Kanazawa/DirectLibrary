@@ -13,38 +13,50 @@ Player::~Player()
 
 void Player::Start()
 {
-	player->posX = 100;
-	player->posY = 100;
-	player->posZ = 100;
-	player->rotX = 100;
-	player->rotY = 100;
-	player->rotZ = 100;
-	player->scaleX = 1;
-	player->scaleY = 1;
-	player->scaleZ = 1;
+	player->posX = 0.0f;
+	player->posY = 0.0f;
+	player->posZ = 0.0f;
+	player->rotX = 0.0f;
+	player->rotY = 0.0f;
+	player->rotZ = 0.0f;
+	player->scaleX = 1.0f;
+	player->scaleY = 1.0f;
+	player->scaleZ = 1.0f;
 }
 
 void Player::Update()
 {
-	if (InputManager::On(KeyType::Right))
+	player->posY += velocity; // 常にプレイヤーに重力をかける
+	velocity -= gravity;      // 常に移動量に重力を加算する
+
+	if (player->posY >= 0)    // ジャンプ中はジャンプできない
 	{
-		player->posX += 0.01f;
+		jump_flag = true;
 	}
-	if (InputManager::On(KeyType::Left))
+	else
 	{
-		player->posX -= 0.01f;
+		jump_flag = false;
 	}
-	if (InputManager::On(KeyType::Up))
+
+	if (InputManager::On(KeyType::Right)) // 右
 	{
-		player->posZ += 0.01f;
+		player->posX += move_speed;
 	}
-	if (InputManager::On(KeyType::Down))
+	if (InputManager::On(KeyType::Left))  // 左
 	{
-		player->posZ -= 0.01f;
+		player->posX -= move_speed;
 	}
-	if (InputManager::On(KeyType::Space))
+	if (InputManager::On(KeyType::Up))    // 奥
 	{
-	 
+		player->posZ += move_speed;
+	}
+	if (InputManager::On(KeyType::Down))  // 手前
+	{
+		player->posZ -= move_speed;
+	}
+	if (InputManager::Trg(KeyType::Space) && jump_flag == false) // ジャンプ
+	{
+		velocity = jump_hight;
 	}
 }
 
