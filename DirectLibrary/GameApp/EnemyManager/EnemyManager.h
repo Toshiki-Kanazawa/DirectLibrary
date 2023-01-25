@@ -12,6 +12,7 @@ private:
 	std::vector<Enemy*> enemies;
 public:
 	void Update();   // ˆ—
+	void Render();	//•`‰æ
 	void EnemyPop(); // “G‚ğ¶¬‚·‚é
 	EnemyManager();
 	~EnemyManager();

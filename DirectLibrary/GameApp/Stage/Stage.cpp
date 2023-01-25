@@ -1,5 +1,7 @@
 #include "Stage.h"
 
+Stage* Stage::instance = nullptr;
+
 Stage::Stage() {
 
 	instance = this;

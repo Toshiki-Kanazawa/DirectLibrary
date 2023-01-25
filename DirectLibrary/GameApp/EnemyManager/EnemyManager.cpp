@@ -18,6 +18,25 @@ void EnemyManager::Update()
 		EnemyPop();
 		timeCount = 0;
 	}
+
+	for (int i = 0; i < enemies.size(); ++i)
+	{
+		if (enemies[i]->ActiveFlag)
+		{
+			enemies[i]->Update();
+		}
+	}
+}
+
+void EnemyManager::Render()
+{
+	for (int i = 0; i < enemies.size(); ++i)
+	{
+		if (enemies[i]->ActiveFlag)
+		{
+			enemies[i]->Render();
+		}
+	}
 }
 
 void EnemyManager::EnemyPop()
@@ -52,6 +71,7 @@ void EnemyManager::EnemyPop()
 		//enemy->Setup(dir,pos)
 	}
 
+	auto spd = 0.01f;
 	auto createFlag = false;	//“GƒLƒƒƒ‰‚ğ¶¬‚µ‚½ƒtƒ‰ƒO‚ğOFF
 	for (int i = 0; i < enemies.size(); ++i)
 	{

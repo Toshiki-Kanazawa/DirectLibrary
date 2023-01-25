@@ -26,6 +26,9 @@ GameApp::GameApp(GameLibrary* gameLibrary)
     player = new Player();
     //player->Start();
 
+    //“GƒLƒƒƒ‰ƒ}ƒl[ƒWƒƒ‚ð¶¬‚·‚é
+    enemyManager = new EnemyManager();
+
 }
 
 //ƒQ[ƒ€‚ÌXVˆ—(–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é)
@@ -46,6 +49,9 @@ void GameApp::Update()
     pos = stage->GetPlayerNextPos(pos, size);
     player->SetPositon(pos);
 
+    //“GƒLƒƒƒ‰‚ÌXV
+    enemyManager->Update();
+
 }
 
 //ƒQ[ƒ€‚Ì•`‰æˆ—(–ˆƒtƒŒ[ƒ€ŒÄ‚Î‚ê‚é)
@@ -59,6 +65,9 @@ void GameApp::Render()
 
     //ƒvƒŒƒCƒ„[‚Ì•`‰æ
     player->Render();
+
+    //“GƒLƒƒƒ‰‚Ì•`‰æ
+    enemyManager->Render();
     
     //•`‰æ‚Ì”½‰f
     gameLibrary->FinishRendering();

@@ -8,11 +8,12 @@ private:
 	float sizeY = 10;
 	float sizeZ = 10;
 
-	Vector3 pos = Vector3(enemy->posX, enemy->posY, enemy->posZ);
+	Vector3 pos;// = Vector3(enemy->posX, enemy->posY, enemy->posZ);
 	Vector3 moveDirection;
 	float moveSpeed;
 
 	bool OutStageFlag;
+	bool InitFlag;
 public:
 	Enemy();
 	~Enemy();

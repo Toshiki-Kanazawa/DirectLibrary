@@ -23,10 +23,12 @@ void Enemy::SetUp(Vector3 SetPos, Vector3 SetDir, float SetSpd)
 	pos = SetPos;
 	moveDirection = SetDir;
 	moveSpeed = SetSpd;
+	Start();
 }
 
 void Enemy::Start()
 {
+	InitFlag = true;
 	ActiveFlag = true;
 
 	enemy->posX = pos.x;
@@ -51,7 +53,27 @@ void Enemy::Update()
 		moveSpeed = 0;
 	}
 
-	OutStageFlag = Stage::GetOutStageFlag(pos);//ステージの外にでたか判定フラグを取得する
+	enemy->posX = pos.x;
+	enemy->posY = pos.y;
+	enemy->posZ = pos.z;
+
+	auto flag = Stage::GetOutStageFlag(pos);//ステージの外にでたか判定フラグを取得する
+	if (flag)
+	{
+		if (InitFlag)
+		{
+			//まだステージに入っていないので削除フラグのONは無視する
+		}
+		else
+		{
+			OutStageFlag = true;
+		}
+	}
+	else
+	{
+		InitFlag = false;
+	}
+
 	if (OutStageFlag) {
 		ActiveFlag = false;
 	}
