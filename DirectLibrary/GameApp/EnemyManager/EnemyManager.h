@@ -1,4 +1,5 @@
 #pragma once
+#include "../ModelObject.h"
 class EnemyManager
 {
 private:
