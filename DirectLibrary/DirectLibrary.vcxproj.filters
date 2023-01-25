@@ -66,6 +66,9 @@
     <ClInclude Include="GameApp\ModelObject.h">
       <Filter>GameApp</Filter>
     </ClInclude>
+    <ClInclude Include="GameApp\Stage\Enemy.h">
+      <Filter>GameApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DirectLibrary.rc">
@@ -111,6 +114,9 @@
       <Filter>GameApp</Filter>
     </ClCompile>
     <ClCompile Include="GameApp\ModelObject.cpp">
+      <Filter>GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp\Stage\Enemy.cpp">
       <Filter>GameApp</Filter>
     </ClCompile>
   </ItemGroup>

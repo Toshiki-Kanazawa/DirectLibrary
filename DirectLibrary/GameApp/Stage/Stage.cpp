@@ -50,3 +50,17 @@ void Stage::Update() {
 void Stage::Render() {
 	Floor->Render();
 }
+
+bool Stage::GetOutStageFlag(Vector3 nowPos)
+{
+	bool outStage = false;
+
+	if (nowPos.x < WorldSize_min.x) outStage = true;
+	if (nowPos.x > WorldSize_max.x) outStage = true;
+	if (nowPos.y < WorldSize_min.y) outStage = true;
+	if (nowPos.y > WorldSize_max.y) outStage = true;
+	if (nowPos.z < WorldSize_min.z) outStage = true;
+	if (nowPos.z > WorldSize_max.z) outStage = true;
+
+	return outStage;
+}

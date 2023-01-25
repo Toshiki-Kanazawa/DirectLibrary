@@ -17,4 +17,6 @@ public:
 	void Start();
 	void Update();
 	void Render();
+
+	bool GetOutStageFlag(Vector3 nowPos);
 };
