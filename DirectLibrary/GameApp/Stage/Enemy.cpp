@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Stage.h"
 
 Enemy::Enemy()
 {
@@ -50,6 +51,7 @@ void Enemy::Update()
 		moveSpeed = 0;
 	}
 
+	OutStageFlag = Stage::GetOutStageFlag(pos);//ステージの外にでたか判定フラグを取得する
 	if (OutStageFlag) {
 		ActiveFlag = false;
 	}

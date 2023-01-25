@@ -4,6 +4,8 @@
 
 class Stage{
 private:
+	static Stage* instance;
+
 	ModelObject* Floor;
 
 	Vector3 WorldSize_min;
@@ -18,5 +20,5 @@ public:
 	void Update();
 	void Render();
 
-	bool GetOutStageFlag(Vector3 nowPos);
+	static bool GetOutStageFlag(Vector3 nowPos);
 };

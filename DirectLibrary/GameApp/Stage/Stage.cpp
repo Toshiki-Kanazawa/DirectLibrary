@@ -1,6 +1,9 @@
 #include "Stage.h"
 
 Stage::Stage() {
+
+	instance = this;
+
 	Floor = new ModelObject( L"Floor.txt" );
 
 	WorldSize_min = Vector3(-10, -10, -10);
@@ -8,6 +11,10 @@ Stage::Stage() {
 }
 
 Stage::~Stage() {
+	if (instance == this)
+	{
+		instance = nullptr;
+	}
 	delete Floor;
 }
 
@@ -55,12 +62,12 @@ bool Stage::GetOutStageFlag(Vector3 nowPos)
 {
 	bool outStage = false;
 
-	if (nowPos.x < WorldSize_min.x) outStage = true;
-	if (nowPos.x > WorldSize_max.x) outStage = true;
-	if (nowPos.y < WorldSize_min.y) outStage = true;
-	if (nowPos.y > WorldSize_max.y) outStage = true;
-	if (nowPos.z < WorldSize_min.z) outStage = true;
-	if (nowPos.z > WorldSize_max.z) outStage = true;
+	if (nowPos.x < instance->WorldSize_min.x) outStage = true;
+	if (nowPos.x > instance->WorldSize_max.x) outStage = true;
+	if (nowPos.y < instance->WorldSize_min.y) outStage = true;
+	if (nowPos.y > instance->WorldSize_max.y) outStage = true;
+	if (nowPos.z < instance->WorldSize_min.z) outStage = true;
+	if (nowPos.z > instance->WorldSize_max.z) outStage = true;
 
 	return outStage;
 }
