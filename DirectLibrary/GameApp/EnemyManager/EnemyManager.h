@@ -1,5 +1,4 @@
 #pragma once
-#include"../ModelObject.h"
 class EnemyManager
 {
 private:
@@ -9,4 +8,6 @@ private:
 public:
 	void Update();   // ˆ—
 	void EnemyPop(); // “G‚ğ¶¬‚·‚é
+	EnemyManager();
+	~EnemyManager();
 };
