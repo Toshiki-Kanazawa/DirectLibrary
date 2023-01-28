@@ -11,6 +11,7 @@ Enemy::Enemy()
 
 	OutStageFlag = false;
 	ActiveFlag = false;
+	InitFlag = false;
 }
 
 Enemy::~Enemy()
