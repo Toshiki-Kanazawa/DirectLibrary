@@ -4,8 +4,8 @@
 #include "ModelObject.h"
 
 float Camera::posX = 0.0f;
-float Camera::posY = 15.0f;
-float Camera::posZ = -20.0f;
+float Camera::posY = 50.0f;
+float Camera::posZ = -50.0f;
 float Camera::focusX = 0.0f;
 float Camera::focusY = 0.0f;
 float Camera::focusZ = 0.0f;
