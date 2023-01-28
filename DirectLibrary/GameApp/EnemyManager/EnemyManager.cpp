@@ -2,6 +2,7 @@
 #include <iostream>
 EnemyManager::EnemyManager()
 {
+	srand((unsigned int)time(NULL)); // ŠÔ‚Å‰Šú‰»
 }
 EnemyManager::~EnemyManager()
 {
@@ -20,6 +21,10 @@ void EnemyManager::Start()
 void EnemyManager::Update()
 {
 	timeCount++;
+	if (interval > 750)
+	{
+		interval -= 0.01f;;
+	}
 
 	if (timeCount >= interval)
 	{
@@ -34,7 +39,6 @@ void EnemyManager::Update()
 			enemies[i]->Update();
 		}
 	}
-	srand((unsigned int)time(NULL)); // ŠÔ‚Å‰Šú‰»
 }
 
 void EnemyManager::Render()
@@ -82,6 +86,10 @@ void EnemyManager::EnemyPop()
 	}
 
 	auto spd = 0.001f + (popCount / 10) * 0.001f;
+	if (spd > 0.011)
+	{
+		spd = 0.01;
+	}
 	auto createFlag = false;	//“GƒLƒƒƒ‰‚ğ¶¬‚µ‚½ƒtƒ‰ƒO‚ğOFF
 	for (int i = 0; i < enemies.size(); ++i)
 	{
