@@ -9,11 +9,9 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Update()
 {
-	timeCount += speed;
+	timeCount++;
 
-	speed = 3.0f + (popCount / 10) * 1.0f;
-
-	if (timeCount >= 60)
+	if (timeCount >= interval)
 	{
 		EnemyPop();
 		timeCount = 0;
@@ -44,34 +42,34 @@ void EnemyManager::EnemyPop()
 	Vector3 pos; // 座標
 	Vector3 dir; // 方向
 
-	auto num = rand() % 3; // 敵の出現方向の乱数
+	auto num = rand() % 4; // 敵の出現方向の乱数
 
 	if (num == 0)
 	{
 		pos = Vector3(0,0,-10);
-		dir = Vector3(0,0,-1); // 下から出現
-		//enemy->Setup(dir,pos)
+		dir = Vector3(0,0,1);   // 下から出現
+		popCount++;
 	}
 	if (num == 1)
 	{
 		pos = Vector3(0,0,10);
-		dir = Vector3(0,0,1);  // 上から出現
-		//enemy->Setup(dir,pos)
+		dir = Vector3(0,0,-1);  // 上から出現
+		popCount++;
 	}
 	if (num == 2)
 	{
 		pos = Vector3(10,0,0);
-		dir = Vector3(1,0,0);  // 右から出現
-		//enemy->Setup(dir,pos)
+		dir = Vector3(-1,0,0);  // 右から出現
+		popCount++;
 	}
 	if (num == 3)
 	{
 		pos = Vector3(-10,0,0);
-		dir = Vector3(-1,0,0); // 左から出現
-		//enemy->Setup(dir,pos)
+		dir = Vector3(1,0,0);   // 左から出現
+		popCount++;
 	}
 
-	auto spd = 0.01f;
+	auto spd = 0.001f + (popCount / 10) * 1.0f;
 	auto createFlag = false;	//敵キャラを生成したフラグをOFF
 	for (int i = 0; i < enemies.size(); ++i)
 	{
@@ -91,5 +89,4 @@ void EnemyManager::EnemyPop()
 		enemy->SetUp(pos, dir, spd);
 		enemies.emplace_back(enemy);
 	}
-
 }
