@@ -4,14 +4,24 @@
 
 GameLibrary* ModelObject::gameLib = nullptr;
 
+//プレイヤーの設定
 #define P_SIZE (0.5f)
 #define P_R (0.34f)
 #define P_G (0.63f)
 #define P_B (1.0f)
+
+//床の設定
 #define F_SIZE (10.0f)
 #define F_R (0.62f)
 #define F_G (1.0f)
 #define F_B (0.37f)
+
+//敵キャラの設定
+#define E_SIZE (0.5f)
+#define E_R (1.0f)
+#define E_G (0.0f)
+#define E_B (0.0f)
+
 
 std::vector<Vertex> playerVertex =
 {
@@ -47,47 +57,25 @@ std::vector<WORD> floorIndex =
     0,2,1, 2,3,1,
 };
 
-//仮データ
-Vertex vertexList[]
+//敵データ
+std::vector<Vertex> enemyVertex = 
 {
-    Vertex(-0.5f,+0.5f,-0.5f, 1.0f, 0.0f, 0.0f, 1.0f),
-    Vertex(+0.5f,+0.5f,-0.5f, 1.0f, 0.0f, 0.0f, 1.0f),
-    Vertex(-0.5f,-0.5f,-0.5f, 1.0f, 0.0f, 0.0f, 1.0f),
-    Vertex(+0.5f,-0.5f,-0.5f, 1.0f, 0.0f, 0.0f, 1.0f),
+    Vertex(-E_SIZE,-E_SIZE,-E_SIZE, E_R, E_G, E_B, 1.0f),//0
+    Vertex(+E_SIZE,-E_SIZE,-E_SIZE, E_R, E_G, E_B, 1.0f),//1
+    Vertex(-E_SIZE,-E_SIZE,+E_SIZE, E_R, E_G, E_B, 1.0f),//2
+    Vertex(+E_SIZE,-E_SIZE,+E_SIZE, E_R, E_G, E_B, 1.0f),//3
 
-    Vertex(-0.5f,+0.5f,+0.5f, 0.0f, 1.0f, 1.0f, 1.0f),
-    Vertex(-0.5f,-0.5f,+0.5f, 0.0f, 1.0f, 1.0f, 1.0f),
-    Vertex(+0.5f,+0.5f,+0.5f, 0.0f, 1.0f, 1.0f, 1.0f),
-    Vertex(+0.5f,-0.5f,+0.5f, 0.0f, 1.0f, 1.0f, 1.0f),
-
-    Vertex(-0.5f,+0.5f,+0.5f, 1.0f, 1.0f, 0.0f, 1.0f),
-    Vertex(-0.5f,+0.5f,-0.5f, 1.0f, 1.0f, 0.0f, 1.0f),
-    Vertex(-0.5f,-0.5f,+0.5f, 1.0f, 1.0f, 0.0f, 1.0f),
-    Vertex(-0.5f,-0.5f,-0.5f, 1.0f, 1.0f, 0.0f, 1.0f),
-
-    Vertex(+0.5f,+0.5f,+0.5f, 0.0f, 0.0f, 1.0f, 1.0f),
-    Vertex(+0.5f,-0.5f,+0.5f, 0.0f, 0.0f, 1.0f, 1.0f),
-    Vertex(+0.5f,+0.5f,-0.5f, 0.0f, 0.0f, 1.0f, 1.0f),
-    Vertex(+0.5f,-0.5f,-0.5f, 0.0f, 0.0f, 1.0f, 1.0f),
-
-    Vertex(-0.5f,+0.5f,+0.5f, 1.0f, 0.0f, 1.0f, 1.0f),
-    Vertex(+0.5f,+0.5f,+0.5f, 1.0f, 0.0f, 1.0f, 1.0f),
-    Vertex(-0.5f,+0.5f,-0.5f, 1.0f, 0.0f, 1.0f, 1.0f),
-    Vertex(+0.5f,+0.5f,-0.5f, 1.0f, 0.0f, 1.0f, 1.0f),
-
-    Vertex(-0.5f,-0.5f,+0.5f, 0.0f, 1.0f, 0.0f, 1.0f),
-    Vertex(-0.5f,-0.5f,-0.5f, 0.0f, 1.0f, 0.0f, 1.0f),
-    Vertex(+0.5f,-0.5f,+0.5f, 0.0f, 1.0f, 0.0f, 1.0f),
-    Vertex(+0.5f,-0.5f,-0.5f, 0.0f, 1.0f, 0.0f, 1.0f),
+    Vertex(-E_SIZE,+E_SIZE,-E_SIZE, E_R, E_G, E_B, 1.0f),//4
+    Vertex(+E_SIZE,+E_SIZE,-E_SIZE, E_R, E_G, E_B, 1.0f),//5
+    Vertex(-E_SIZE,+E_SIZE,+E_SIZE, E_R, E_G, E_B, 1.0f),//6
+    Vertex(+E_SIZE,+E_SIZE,+E_SIZE, E_R, E_G, E_B, 1.0f),//7
 };
-WORD indexList[]
+std::vector<WORD> enemyIndex =
 {
-     0,  1,  2,     3,  2,  1,
-     4,  5,  6,     7,  6,  5,
-     8,  9, 10,    11, 10,  9,
-    12, 13, 14,    15, 14, 13,
-    16, 17, 18,    19, 18, 17,
-    20, 21, 22,    23, 22, 21,
+     0,4,1, 4,5,1,
+     2,6,0, 6,4,0,
+     3,5,7, 5,3,1,
+     4,6,7, 7,5,4,
 };
 
 //モデルのコンストラクタ
@@ -123,10 +111,10 @@ ModelObject::ModelObject(const std::wstring& filePath)
     }
     else
     {
-        vertexData->vertex = vertexList;
-        vertexData->indexes = indexList;
-        vertexData->size = 24;
-        vertexData->indexSize = 36;
+        vertexData->vertex = enemyVertex.data();
+        vertexData->indexes = enemyIndex.data();
+        vertexData->size = enemyVertex.size();
+        vertexData->indexSize = enemyIndex.size();
     }
 
     //メッシュを作成する
