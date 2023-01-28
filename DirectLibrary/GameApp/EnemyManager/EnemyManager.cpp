@@ -34,6 +34,7 @@ void EnemyManager::Update()
 			enemies[i]->Update();
 		}
 	}
+	srand((unsigned int)time(NULL)); // ŠÔ‚Å‰Šú‰»
 }
 
 void EnemyManager::Render()
