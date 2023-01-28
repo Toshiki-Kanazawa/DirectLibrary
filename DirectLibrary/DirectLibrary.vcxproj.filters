@@ -1,123 +1,131 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<Filter Include="ソース ファイル">
-			<UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-			<Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-		</Filter>
-		<Filter Include="ヘッダー ファイル">
-			<UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-			<Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-		</Filter>
-		<Filter Include="リソース ファイル">
-			<UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-			<Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-		</Filter>
-		<Filter Include="shader">
-			<UniqueIdentifier>{a5a5acf6-5cd5-4c89-ba37-db9f7c591f65}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="GameApp">
-			<UniqueIdentifier>{688621e8-8ece-4e95-bbcf-cf82befd4f31}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Library">
-			<UniqueIdentifier>{d14a132b-75e7-49b6-9c77-5dd3b3ed5f74}</UniqueIdentifier>
-		</Filter>
-		<Filter Include="Library\DirectX">
-			<UniqueIdentifier>{e7583b82-ebe2-4a97-802b-1ce95c896b21}</UniqueIdentifier>
-		</Filter>
-	</ItemGroup>
-	<ItemGroup>
-		<ClInclude Include="framework.h">
-			<Filter>ヘッダー ファイル</Filter>
-		</ClInclude>
-		<ClInclude Include="targetver.h">
-			<Filter>ヘッダー ファイル</Filter>
-		</ClInclude>
-		<ClInclude Include="Resource.h">
-			<Filter>ヘッダー ファイル</Filter>
-		</ClInclude>
-		<ClInclude Include="Library\DirectX\DirectX.h">
-			<Filter>Library\DirectX</Filter>
-		</ClInclude>
-		<ClInclude Include="Library\DirectX\InputManager.h">
-			<Filter>Library\DirectX</Filter>
-		</ClInclude>
-		<ClInclude Include="Main.h">
-			<Filter>ソース ファイル</Filter>
-		</ClInclude>
-		<ClInclude Include="Library\GameLibrary.h">
-			<Filter>Library</Filter>
-		</ClInclude>
-		<ClInclude Include="GameApp\GameApp.h">
-			<Filter>GameApp</Filter>
-		</ClInclude>
-		<ClInclude Include="Library\DirectX\MeshRenderer.h">
-			<Filter>Library\DirectX</Filter>
-		</ClInclude>
-		<ClInclude Include="Library\IMeshRenderer.h">
-			<Filter>Library</Filter>
-		</ClInclude>
-		<ClInclude Include="GameApp\Stage\Stage.h">
-			<Filter>GameApp</Filter>
-		</ClInclude>
-		<ClInclude Include="GameApp\Player\Player.h">
-			<Filter>GameApp</Filter>
-		</ClInclude>
-		<ClInclude Include="GameApp\ModelObject.h">
-			<Filter>GameApp</Filter>
-		</ClInclude>
-		<ClInclude Include="GameApp\EnemyManager\EnemyManager.h">
-			<Filter>GameApp</Filter>
-		</ClInclude>
-	</ItemGroup>
-	<ItemGroup>
-		<ResourceCompile Include="DirectLibrary.rc">
-			<Filter>リソース ファイル</Filter>
-		</ResourceCompile>
-	</ItemGroup>
-	<ItemGroup>
-		<Image Include="small.ico">
-			<Filter>リソース ファイル</Filter>
-		</Image>
-		<Image Include="DirectLibrary.ico">
-			<Filter>リソース ファイル</Filter>
-		</Image>
-	</ItemGroup>
-	<ItemGroup>
-		<FxCompile Include="Shader\psShader.psh">
-			<Filter>shader</Filter>
-		</FxCompile>
-		<FxCompile Include="Shader\vsShader.vsh">
-			<Filter>shader</Filter>
-		</FxCompile>
-	</ItemGroup>
-	<ItemGroup>
-		<ClCompile Include="Library\DirectX\DirectX.cpp">
-			<Filter>Library\DirectX</Filter>
-		</ClCompile>
-		<ClCompile Include="Library\DirectX\InputManager.cpp">
-			<Filter>Library\DirectX</Filter>
-		</ClCompile>
-		<ClCompile Include="Main.cpp">
-			<Filter>ソース ファイル</Filter>
-		</ClCompile>
-		<ClCompile Include="GameApp\GameApp.cpp">
-			<Filter>GameApp</Filter>
-		</ClCompile>
-		<ClCompile Include="Library\DirectX\MeshRenderer.cpp">
-			<Filter>Library\DirectX</Filter>
-		</ClCompile>
-		<ClCompile Include="GameApp\Stage\Stage.cpp">
-			<Filter>GameApp</Filter>
-		</ClCompile>
-		<ClCompile Include="GameApp\Player\Player.cpp">
-			<Filter>GameApp</Filter>
-		</ClCompile>
-		<ClCompile Include="GameApp\ModelObject.cpp">
-			<Filter>GameApp</Filter>
-		</ClCompile>
-		<ClCompile Include="GameApp\EnemyManager\EnemyManager.cpp">
-			<Filter>GameApp</Filter>
-		</ClCompile>
-	</ItemGroup>
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{a5a5acf6-5cd5-4c89-ba37-db9f7c591f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameApp">
+      <UniqueIdentifier>{688621e8-8ece-4e95-bbcf-cf82befd4f31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library">
+      <UniqueIdentifier>{d14a132b-75e7-49b6-9c77-5dd3b3ed5f74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\DirectX">
+      <UniqueIdentifier>{e7583b82-ebe2-4a97-802b-1ce95c896b21}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DirectX\DirectX.h">
+      <Filter>Library\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DirectX\InputManager.h">
+      <Filter>Library\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\GameLibrary.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp\GameApp.h">
+      <Filter>GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\DirectX\MeshRenderer.h">
+      <Filter>Library\DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Library\IMeshRenderer.h">
+      <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp\Stage\Stage.h">
+      <Filter>GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp\Player\Player.h">
+      <Filter>GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp\ModelObject.h">
+      <Filter>GameApp</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="GameApp\Stage\Enemy.h">
+=======
+    <ClInclude Include="GameApp\EnemyManager\EnemyManager.h">
+>>>>>>> origin/main
+      <Filter>GameApp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectLibrary.rc">
+      <Filter>リソース ファイル</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="DirectLibrary.ico">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\psShader.psh">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\vsShader.vsh">
+      <Filter>shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Library\DirectX\DirectX.cpp">
+      <Filter>Library\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\DirectX\InputManager.cpp">
+      <Filter>Library\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp\GameApp.cpp">
+      <Filter>GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="Library\DirectX\MeshRenderer.cpp">
+      <Filter>Library\DirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp\Stage\Stage.cpp">
+      <Filter>GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp\Player\Player.cpp">
+      <Filter>GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp\ModelObject.cpp">
+      <Filter>GameApp</Filter>
+    </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="GameApp\Stage\Enemy.cpp">
+=======
+    <ClCompile Include="GameApp\EnemyManager\EnemyManager.cpp">
+>>>>>>> origin/main
+      <Filter>GameApp</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>
