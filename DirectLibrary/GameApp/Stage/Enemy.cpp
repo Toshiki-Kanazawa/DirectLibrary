@@ -29,6 +29,7 @@ void Enemy::SetUp(Vector3 SetPos, Vector3 SetDir, float SetSpd)
 
 void Enemy::Start()
 {
+	OutStageFlag = false;
 	InitFlag = true;
 	ActiveFlag = true;
 
