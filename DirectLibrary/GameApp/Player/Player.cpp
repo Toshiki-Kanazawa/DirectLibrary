@@ -54,7 +54,7 @@ void Player::Update()
 	{
 		player->posZ -= move_speed;
 	}
-	if (InputManager::Trg(KeyType::Space) && jump_flag == false) // ジャンプ
+	if (InputManager::Trg(KeyType::Z) && jump_flag == false) // ジャンプ
 	{
 		velocity = jump_hight;
 	}
