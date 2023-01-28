@@ -91,3 +91,10 @@ Vector3 Enemy::GetSize()
 	Vector3 size(sizeX, sizeY, sizeZ);
 	return size;
 }
+
+bool Enemy::IsHit(const Vector3& _pos, const Vector3& _size)
+{
+	return	_pos.x + _size.x >= pos.x - sizeX && _pos.x - _size.x <= pos.x + sizeX &&
+			_pos.y + _size.y >= pos.y - sizeY && _pos.y - _size.y <= pos.y + sizeY &&
+			_pos.z + _size.z >= pos.z - sizeZ && _pos.z - _size.z <= pos.z + sizeZ;
+}

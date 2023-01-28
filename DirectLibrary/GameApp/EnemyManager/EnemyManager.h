@@ -12,9 +12,11 @@ private:
 
 	std::vector<Enemy*> enemies;
 public:
+	void Start();
 	void Update();   // ˆ—
 	void Render();	//•`‰æ
 	void EnemyPop(); // “G‚ğ¶¬‚·‚é
 	EnemyManager();
 	~EnemyManager();
+	bool IsHitEnemy(const Vector3& pos, const Vector3& size);
 };

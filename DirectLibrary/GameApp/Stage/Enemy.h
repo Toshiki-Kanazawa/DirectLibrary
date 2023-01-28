@@ -26,5 +26,8 @@ public:
 	void Render();
 
 	Vector3 GetSize();
+
+	//ÚG‚µ‚½‚©”»’è‚·‚é
+	bool IsHit(const Vector3& pos, const Vector3& size);
 	
 };

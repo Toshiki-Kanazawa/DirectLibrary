@@ -5,13 +5,13 @@
 GameLibrary* ModelObject::gameLib = nullptr;
 
 #define P_SIZE (0.5f)
-#define P_R (0.0f)
-#define P_G (0.0f)
+#define P_R (0.34f)
+#define P_G (0.63f)
 #define P_B (1.0f)
 #define F_SIZE (10.0f)
-#define F_R (0.0f)
+#define F_R (0.62f)
 #define F_G (1.0f)
-#define F_B (0.0f)
+#define F_B (0.37f)
 
 std::vector<Vertex> playerVertex =
 {

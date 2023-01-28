@@ -7,6 +7,16 @@ EnemyManager::~EnemyManager()
 {
 }
 
+void EnemyManager::Start()
+{
+	timeCount = 0;
+	popCount = 0;
+	for (int i = 0; i < enemies.size(); ++i)
+	{
+		enemies[i]->ActiveFlag = false;
+	}
+}
+
 void EnemyManager::Update()
 {
 	timeCount++;
@@ -90,4 +100,19 @@ void EnemyManager::EnemyPop()
 		enemy->SetUp(pos, dir, spd);
 		enemies.emplace_back(enemy);
 	}
+}
+
+bool EnemyManager::IsHitEnemy(const Vector3& pos, const Vector3& size)
+{
+	for (int i = 0; i < enemies.size(); ++i)
+	{
+		if (!enemies[i]->ActiveFlag) continue;
+
+		//“G‚É“–‚½‚Á‚½‚©’²‚×‚é
+		if (enemies[i]->IsHit(pos, size))
+		{
+			return true;
+		}
+	}
+	return false;	//“G‚É“–‚½‚Á‚Ä‚È‚¢
 }

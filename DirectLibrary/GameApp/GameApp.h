@@ -14,8 +14,11 @@ private:
 	Player* player;	//プレイヤー
 	Stage* stage;	//ステージ
 	EnemyManager* enemyManager;	//敵キャラマネージャ
+
+	bool gameOverFlag;
 public:
 	GameApp(GameLibrary* gameLibrary);
+	void Init();
 	void Update();
 	void Render();
 	static const Camera& GetCamera(){ return camera; }
