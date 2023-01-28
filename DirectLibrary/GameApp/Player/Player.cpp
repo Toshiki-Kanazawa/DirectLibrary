@@ -29,13 +29,9 @@ void Player::Update()
 	player->posY += velocity; // 常にプレイヤーに重力をかける
 	velocity -= gravity;      // 常に移動量に重力を加算する
 
-	if (player->posY >= 0)    // ジャンプ中はジャンプできない
+	if (player->posY - sizeY <= 0.0f )
 	{
 		jump_flag = true;
-	}
-	else
-	{
-		jump_flag = false;
 	}
 
 	if (InputManager::On(KeyType::Right)) // 右
@@ -54,9 +50,13 @@ void Player::Update()
 	{
 		player->posZ -= move_speed;
 	}
-	if (InputManager::Trg(KeyType::Z) && jump_flag == false) // ジャンプ
+	if (InputManager::Trg(KeyType::Z) ) // ジャンプ
 	{
-		velocity = jump_hight;
+		if (jump_flag)
+		{
+			velocity = jump_hight;
+			jump_flag = false;
+		}
 	}
 }
 
